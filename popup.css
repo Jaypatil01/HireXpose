@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 330px;
+    min-height: 420px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f1115;
+    color: white;
+}
+
+.container {
+    padding: 22px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.tagline {
+    color: #9ca3af;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.status-card {
+    background: #181b21;
+    border: 1px solid #292d35;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.score {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.status {
+    color: #facc15;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.info {
+    background: #181b21;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.info-title {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-bottom: 8px;
+}
+
+.info-text {
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    background: #ffffff;
+    color: #111111;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e5e7eb;
+}
