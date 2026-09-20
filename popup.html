@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <title>HireXpose</title>
     <link rel="stylesheet" href="popup.css">
 </head>
@@ -40,17 +41,31 @@
                 CURRENT PAGE
             </div>
 
-            <div class="info-text">
-                Ready to analyze this job listing.
+            <div class="info-text" id="pageInfo">
+                Click "Analyze Job" to scan this page.
             </div>
 
         </div>
 
-        <button>
+        <div class="info" id="redFlagsBox">
+
+            <div class="info-title">
+                DETECTION REASONS
+            </div>
+
+            <div id="redFlags">
+                No analysis yet.
+            </div>
+
+        </div>
+
+        <button id="analyzeButton">
             Analyze Job
         </button>
 
     </div>
+
+    <script src="detector.js"></script>
     <script src="popup.js"></script>
 
 </body>

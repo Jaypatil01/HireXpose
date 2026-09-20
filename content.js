@@ -1,7 +1,14 @@
-console.log("HireXpose content script is running!");
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
-console.log("Page title:", document.title);
+    if (message.action === "getPageData") {
 
-console.log("Page URL:", window.location.href);
+        const pageData = {
+            title: document.title,
+            url: window.location.href,
+            text: document.body.innerText
+        };
 
-console.log("Page text:", document.body.innerText);
+        sendResponse(pageData);
+    }
+
+});

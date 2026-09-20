@@ -80,3 +80,25 @@ button {
 button:hover {
     background: #e5e7eb;
 }
+#redFlags {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.red-flag {
+    padding: 8px 0;
+    border-bottom: 1px solid #292d35;
+}
+
+.red-flag:last-child {
+    border-bottom: none;
+}
+
+.flag-message {
+    display: block;
+}
+
+.flag-points {
+    color: #9ca3af;
+    font-size: 12px;
+}
