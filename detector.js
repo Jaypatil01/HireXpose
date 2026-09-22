@@ -5,108 +5,202 @@ function analyzeJobText(text) {
     let score = 0;
     let redFlags = [];
 
-    // 1. Payment requests
-    const paymentWords = [
-        "registration fee",
-        "pay a fee",
-        "pay money",
-        "payment required",
-        "processing fee",
-        "security deposit"
-    ];
-
-    if (paymentWords.some(word => lowerText.includes(word))) {
-        score += 30;
-
-        redFlags.push({
-            message: "Payment or registration fee requested",
-            points: 30
-        });
+    // Helper function
+    function containsAny(words) {
+        return words.some(word => lowerText.includes(word));
     }
 
+    // ------------------------------------------------
+    // 1. PAYMENT REQUEST
+    // ------------------------------------------------
+     // ------------------------------------------------
+// 1. PAYMENT REQUEST
+// ------------------------------------------------
 
-    // 2. Aadhaar / identity documents
-    const identityWords = [
-        "aadhaar",
-        "aadhar",
-        "pan card",
-        "identity proof"
+     const paymentRequestPatterns = [
+    "registration fee",
+    "application fee",
+    "processing fee",
+    "security deposit",
+    "onboarding fee",
+    "joining fee",
+    "training fee",
+    "verification fee",
+    "pay before joining",
+    "pay before interview",
+    "payment required",
+    "fee required",
+    "deposit required",
+    "pay to apply",
+    "pay to register",
+    "pay to confirm",
+    "pay to secure",
+    "pay a fee",
+    "make a payment",
+    "send payment",
+    "transfer money",
+    "send money",
+    "pay ₹",
+    "pay rs",
+    "pay inr"
     ];
 
-    if (identityWords.some(word => lowerText.includes(word))) {
-        score += 20;
+    if (containsAny(paymentRequestPatterns)) {
 
-        redFlags.push({
-            message: "Sensitive identity information requested",
-            points: 20
-        });
-    }
+    score += 30;
+
+    redFlags.push({
+        message: "Payment or fee requested from applicant",
+        points: 30
+    });
+  }
 
 
-    // 3. Bank information
+    // ------------------------------------------------
+    // 2. SENSITIVE IDENTITY INFORMATION
+    // ------------------------------------------------
+
+    // ------------------------------------------------
+// 2. SENSITIVE IDENTITY INFORMATION
+// ------------------------------------------------
+
+ const identityRequestPatterns = [
+    "upload your aadhaar",
+    "upload your aadhar",
+    "submit your aadhaar",
+    "submit your aadhar",
+    "provide your aadhaar",
+    "provide your aadhar",
+    "send your aadhaar",
+    "send your aadhar",
+    "share your aadhaar",
+    "share your aadhar",
+    "enter your aadhaar",
+    "enter your aadhar",
+    "upload aadhaar card",
+    "upload aadhar card",
+    "submit aadhaar card",
+    "submit aadhar card",
+    "upload your pan card",
+    "submit your pan card",
+    "provide your pan card",
+    "send your pan card",
+    "upload identity proof",
+    "submit identity proof",
+    "provide identity proof"
+    ];
+
+   if (containsAny(identityRequestPatterns)) {
+
+    score += 20;
+
+    redFlags.push({
+        message: "Sensitive identity document requested",
+        points: 20
+    });
+ }
+
+    // ------------------------------------------------
+    // 3. BANK INFORMATION
+    // ------------------------------------------------
+
     const bankWords = [
         "bank account",
         "bank details",
         "account number",
         "ifsc",
-        "debit card"
+        "debit card",
+        "credit card",
+        "banking information"
     ];
 
-    if (bankWords.some(word => lowerText.includes(word))) {
+    if (
+        containsAny(bankWords) &&
+        containsAny(requestWords)
+    ) {
         score += 25;
 
         redFlags.push({
-            message: "Banking information requested",
+            message: "Banking information may be requested",
             points: 25
         });
     }
 
 
-    // 4. OTP
+    // ------------------------------------------------
+    // 4. OTP / VERIFICATION CODE
+    // ------------------------------------------------
+
     const otpWords = [
         "otp",
         "one time password",
-        "verification code"
+        "verification code",
+        "security code"
     ];
 
-    if (otpWords.some(word => lowerText.includes(word))) {
+    if (
+        containsAny(otpWords) &&
+        containsAny([
+            "enter",
+            "share",
+            "send",
+            "provide",
+            "submit",
+            "verify"
+        ])
+    ) {
         score += 30;
 
         redFlags.push({
-            message: "OTP or verification code requested",
+            message: "OTP or verification code may be requested",
             points: 30
         });
     }
 
 
-    // 5. Guaranteed salary
+    // ------------------------------------------------
+    // 5. GUARANTEED / UNREALISTIC INCOME
+    // ------------------------------------------------
+
     const salaryWords = [
         "guaranteed salary",
         "guaranteed income",
         "earn money guaranteed",
-        "fixed income"
+        "fixed income",
+        "guaranteed earnings",
+        "earn ₹",
+        "earn rs"
     ];
 
-    if (salaryWords.some(word => lowerText.includes(word))) {
+    if (containsAny(salaryWords)) {
+
         score += 15;
 
         redFlags.push({
-            message: "Unusually guaranteed income claim",
+            message: "Guaranteed or unusually strong income claim",
             points: 15
         });
     }
 
 
-    // 6. Urgency
+    // ------------------------------------------------
+    // 6. URGENCY / PRESSURE
+    // ------------------------------------------------
+
     const urgencyWords = [
         "apply immediately",
         "act now",
         "limited vacancies",
         "urgent hiring",
-        "join immediately"
+        "join immediately",
+        "apply today",
+        "limited seats",
+        "hurry",
+        "last chance"
     ];
 
-    if (urgencyWords.some(word => lowerText.includes(word))) {
+    if (containsAny(urgencyWords)) {
+
         score += 10;
 
         redFlags.push({
@@ -116,39 +210,52 @@ function analyzeJobText(text) {
     }
 
 
-    // 7. WhatsApp-only recruitment
-    const whatsappWords = [
+    // ------------------------------------------------
+    // 7. WHATSAPP / TELEGRAM RECRUITMENT
+    // ------------------------------------------------
+
+    const messagingWords = [
+        "whatsapp only",
         "contact on whatsapp",
         "contact us on whatsapp",
-        "whatsapp only",
-        "message us on whatsapp"
+        "message us on whatsapp",
+        "telegram only",
+        "contact on telegram",
+        "message us on telegram"
     ];
 
-    if (whatsappWords.some(word => lowerText.includes(word))) {
+    if (containsAny(messagingWords)) {
+
         score += 10;
 
         redFlags.push({
-            message: "WhatsApp-only recruitment detected",
+            message: "Recruitment relies on messaging apps",
             points: 10
         });
     }
 
 
-    // Maximum score = 100
+    // ------------------------------------------------
+    // FINAL SCORE
+    // ------------------------------------------------
+
     if (score > 100) {
         score = 100;
     }
 
 
-    // Determine risk level
+    // ------------------------------------------------
+    // RISK LEVEL
+    // ------------------------------------------------
+
     let level;
 
     if (score <= 30) {
         level = "LOW RISK";
-    } 
+    }
     else if (score <= 60) {
         level = "SUSPICIOUS";
-    } 
+    }
     else {
         level = "HIGH RISK";
     }
