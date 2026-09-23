@@ -57,10 +57,6 @@ function analyzeJobText(text) {
 
 
     // ------------------------------------------------
-    // 2. SENSITIVE IDENTITY INFORMATION
-    // ------------------------------------------------
-
-    // ------------------------------------------------
 // 2. SENSITIVE IDENTITY INFORMATION
 // ------------------------------------------------
 
@@ -100,62 +96,79 @@ function analyzeJobText(text) {
     });
  }
 
-    // ------------------------------------------------
-    // 3. BANK INFORMATION
-    // ------------------------------------------------
+      // ------------------------------------------------
+// 3. BANK INFORMATION
+// ------------------------------------------------
 
-    const bankWords = [
-        "bank account",
-        "bank details",
-        "account number",
-        "ifsc",
-        "debit card",
-        "credit card",
-        "banking information"
+     const bankRequestPatterns = [
+    "enter your bank account",
+    "enter your bank details",
+    "enter your account number",
+    "provide your bank account",
+    "provide your bank details",
+    "provide your account number",
+    "submit your bank details",
+    "submit your bank account",
+    "send your bank details",
+    "send your account number",
+    "share your bank details",
+    "share your account number",
+    "upload bank details",
+    "enter your ifsc",
+    "provide your ifsc",
+    "submit your ifsc",
+    "enter your debit card",
+    "enter your credit card",
+    "provide your debit card",
+    "provide your credit card"
     ];
 
-    if (
-        containsAny(bankWords) &&
-        containsAny(requestWords)
-    ) {
-        score += 25;
+      if (containsAny(bankRequestPatterns)) {
 
-        redFlags.push({
-            message: "Banking information may be requested",
-            points: 25
-        });
-    }
+      score += 25;
+
+      redFlags.push({
+        message: "Banking or card information requested",
+        points: 25
+       });
+     }
 
 
     // ------------------------------------------------
     // 4. OTP / VERIFICATION CODE
-    // ------------------------------------------------
+// ------------------------------------------------
+    
 
-    const otpWords = [
-        "otp",
-        "one time password",
-        "verification code",
-        "security code"
+    const otpRequestPatterns = [
+    "enter your otp",
+    "enter otp",
+    "submit your otp",
+    "submit otp",
+    "provide your otp",
+    "provide otp",
+    "share your otp",
+    "share otp",
+    "send your otp",
+    "send otp",
+    "enter your one time password",
+    "share your one time password",
+    "provide your verification code",
+    "enter your verification code",
+    "share your verification code",
+    "send your verification code",
+    "enter the otp",
+    "share the otp"
     ];
 
-    if (
-        containsAny(otpWords) &&
-        containsAny([
-            "enter",
-            "share",
-            "send",
-            "provide",
-            "submit",
-            "verify"
-        ])
-    ) {
+    if (containsAny(otpRequestPatterns)) {
+
         score += 30;
 
-        redFlags.push({
-            message: "OTP or verification code may be requested",
-            points: 30
-        });
-    }
+         redFlags.push({
+         message: "OTP or verification code requested",
+         points: 30
+    });
+ }
 
 
     // ------------------------------------------------
@@ -187,53 +200,65 @@ function analyzeJobText(text) {
     // 6. URGENCY / PRESSURE
     // ------------------------------------------------
 
-    const urgencyWords = [
-        "apply immediately",
-        "act now",
-        "limited vacancies",
-        "urgent hiring",
-        "join immediately",
-        "apply today",
-        "limited seats",
-        "hurry",
-        "last chance"
+    const strongUrgencyPatterns = [
+    "pay now",
+    "act now",
+    "apply immediately",
+    "join immediately",
+    "limited vacancies",
+    "limited seats",
+    "last chance",
+    "hurry",
+    "offer expires today",
+    "offer expires soon",
+    "respond immediately",
+    "must apply today",
+    "apply within 24 hours",
+    "confirm immediately"
     ];
 
-    if (containsAny(urgencyWords)) {
+     if (containsAny(strongUrgencyPatterns)) {
 
-        score += 10;
+      score += 10;
 
-        redFlags.push({
-            message: "Urgency or pressure detected",
-            points: 10
-        });
-    }
+     redFlags.push({
+        message: "Strong urgency or pressure detected",
+        points: 10
+      });
+   }
 
 
     // ------------------------------------------------
     // 7. WHATSAPP / TELEGRAM RECRUITMENT
-    // ------------------------------------------------
+     // ------------------------------------------------
 
-    const messagingWords = [
-        "whatsapp only",
-        "contact on whatsapp",
-        "contact us on whatsapp",
-        "message us on whatsapp",
-        "telegram only",
-        "contact on telegram",
-        "message us on telegram"
+    const messagingRecruitmentPatterns = [
+    "whatsapp only",
+    "contact recruiter on whatsapp",
+    "contact us on whatsapp",
+    "message recruiter on whatsapp",
+    "message us on whatsapp",
+    "send resume on whatsapp",
+    "send cv on whatsapp",
+    "whatsapp interview",
+    "whatsapp recruitment",
+    "telegram only",
+    "contact recruiter on telegram",
+    "contact us on telegram",
+    "message recruiter on telegram",
+    "send resume on telegram",
+    "telegram interview"
     ];
 
-    if (containsAny(messagingWords)) {
+    if (containsAny(messagingRecruitmentPatterns)) {
 
-        score += 10;
+    score += 10;
 
-        redFlags.push({
-            message: "Recruitment relies on messaging apps",
-            points: 10
-        });
+    redFlags.push({
+        message: "Recruitment relies heavily on messaging apps",
+        points: 10
+    });
     }
-
 
     // ------------------------------------------------
     // FINAL SCORE
