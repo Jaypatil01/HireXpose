@@ -79,6 +79,44 @@ When a user visits a job listing, HireXpose:
                 │ Risk Engine │
                 │   0–100     │
                 └──────┬──────┘
+---
+#🚀 Installation
+1. Clone the Repository
+git clone https://github.com/Jaypatil01/HireXpose.git
+
+Open the project folder in VS Code.
+
+2. Open Chrome Extensions
+
+Navigate to:
+
+chrome://extensions
+3. Enable Developer Mode
+
+Turn on Developer mode in the top-right corner.
+
+4. Load HireXpose
+
+Click:
+
+Load unpacked
+
+and select the cloned HireXpose folder.
+
+5. Start Scanning
+
+Open a job listing in Chrome.
+
+Click the HireXpose extension and select:
+
+Analyze Job
+
+The extension will display:
+
+Risk score
+Risk level
+Detection reasons
+Website signals
                        ▼
                ┌───────────────┐
                │ HireXpose UI  │
