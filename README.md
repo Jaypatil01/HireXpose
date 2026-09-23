@@ -79,46 +79,66 @@ When a user visits a job listing, HireXpose:
                 │ Risk Engine │
                 │   0–100     │
                 └──────┬──────┘
----
-#🚀 Installation
-1. Clone the Repository
-git clone https://github.com/Jaypatil01/HireXpose.git
 
-Open the project folder in VS Code.
+```
+## 🚀 Installation
 
-2. Open Chrome Extensions
+### 1. Clone the repository
 
-Navigate to:
+```bash
+    git clone https://github.com/Jaypatil01/HireXpose.git
+```
 
+### 2. Open Chrome Extensions
+
+Open Chrome and go to:
+
+```text
 chrome://extensions
-3. Enable Developer Mode
+```
 
-Turn on Developer mode in the top-right corner.
+### 3. Enable Developer Mode
 
-4. Load HireXpose
+Turn on **Developer mode** in the top-right corner.
 
-Click:
+### 4. Load HireXpose
 
-Load unpacked
+Click **Load unpacked** and select the cloned `HireXpose` folder.
 
-and select the cloned HireXpose folder.
+### 5. Start Scanning
 
-5. Start Scanning
+Open any job listing, click the **HireXpose** extension, and select:
 
-Open a job listing in Chrome.
+**Analyze Job**
 
-Click the HireXpose extension and select:
+---
 
-Analyze Job
+## 🧪 Demo / Testing
 
-The extension will display:
+The repository includes a controlled test page:
 
-Risk score
-Risk level
-Detection reasons
-Website signals
-                       ▼
-               ┌───────────────┐
-               │ HireXpose UI  │
-               │ Score + Why   │
-               └───────────────┘
+```text
+test-job.html
+```
+
+The test page contains simulated suspicious job-recruitment patterns such as:
+
+* Registration fee requests
+* Aadhaar / PAN requests
+* Bank details requests
+* OTP requests
+* Urgency and pressure
+
+To test the MVP:
+
+1. Open `test-job.html` in Chrome.
+2. If required, enable **Allow access to file URLs** for HireXpose in Chrome Extensions.
+3. Open the HireXpose extension.
+4. Click **Analyze Job**.
+5. Review the risk score and detected signals.
+
+This provides a controlled environment for demonstrating the HireXpose detection pipeline without interacting with a real malicious website.
+
+
+
+
